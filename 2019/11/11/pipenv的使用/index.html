@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>竹冉的博客</title>
+  <title>pipenv的使用 | 竹冉的博客</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -114,38 +114,98 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title"></div>
+      <div class="post-title">pipenv的使用</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间"></i>
-          2020-09-17
+          2019-11-11
         </span>
         
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/Python/" title="Python">
+                    <b>#</b> Python
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Python/" title="Python">
+                    <b>#</b> Python
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
       <div class="markdown-body">
-        <p>Title: 上海街拍<br>Date: 2019-7-26 17:33:45<br>Modified: 2019-7-26 14:39:36<br>Category: 感想<br>Tags: 上海;<br>Slug: shanghai<br>Author: 亚瑟<br>description:上海的夏天遍地是美女，白花花的大腿看的人大脑发麻。觉得中国人怎么能比老外还要白的耀眼呢？</p>
-<p>作为一个老流氓，回国之后突然有了赚钱的动力。</p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111214203.jpg" alt="微信图片_20191111214203"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111214223.jpg" alt="微信图片_20191111214223"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111214238.jpg" alt="微信图片_20191111214238"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111214340.jpg" alt="微信图片_20191111214340"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111214417.jpg" alt="微信图片_20191111214417"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111214611.jpg" alt="微信图片_20191111214611"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215246.jpg" alt="微信图片_20191111215246"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215252.jpg" alt="微信图片_20191111215252"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215337.jpg" alt="微信图片_20191111215337"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215342.jpg" alt="微信图片_20191111215342"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215358.jpg" alt="微信图片_20191111215358"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215412.jpg" alt="微信图片_20191111215412"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215422.jpg" alt="微信图片_20191111215422"></p>
-<p><img src=".%5Cimg%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191111215430.jpg" alt="微信图片_20191111215430"></p>
+        <h2 id="1-安装pipenv"><a href="#1-安装pipenv" class="headerlink" title="1.安装pipenv"></a>1.安装pipenv</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pipenv</span><br></pre></td></tr></table></figure>
+
+<p>这里要说的是记得用python3</p>
+<p>然后在你的工程文件夹里打开终端，输入以下命令来建立一个虚拟环境。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pipenv install</span><br></pre></td></tr></table></figure>
+
+<p>接着就可以在你的文件夹里创建一个虚拟环境了，但如果你是在windows电脑上进行操作，会发生编码错误。错误源头是因为windows系统的文件默认编码是GBK, 但“virtualenv.py”这个文件下的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs_encoding = sys.getfilesystemencoding()</span><br></pre></td></tr></table></figure>
+
+<p>不知道什么原因，未能探测出windows下的默认编码，所以解决方案就是手动修改。如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs_encoding = <span class="string">&#x27;gbk&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是最快的解决方案了，所以感慨，Python在windows下还真是二等公民。</p>
+<p>这一步后pipenv会在文件夹里创建”Pipfile” 和 “Pipfile.lock”这两个文件，其功能类似于node.js 下的package.js和package-lock.js这两个文件。</p>
+<p>Pipenv会在你创建虚拟环境时自动创建Pipfile和Pipfile.lock文件（如果不存在），并且会在你使用pipenv install和pipenv uninstall命令安装和卸载包时自动更新Pipfile和Pipfile.lock。</p>
+<p>附注：Pipfile用来记录项目依赖包列表，而Pipfile.lock记录了固定版本的详细依赖包列表。</p>
+<h2 id="2-激活pipenv-环境"><a href="#2-激活pipenv-环境" class="headerlink" title="2.激活pipenv 环境"></a>2.激活pipenv 环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv shell</span><br></pre></td></tr></table></figure>
+
+<p>使用以上命令来激活pipenv环境。此外，Pipenv还提供了一个pipenv run命令，在该命令后附加的参数会直接作为命令在虚拟环境中执行，这允许你不必显式的激活虚拟环境即可在虚拟环境中执行命令。比如，pipenv run python会启动虚拟环境中的Python解释器。</p>
+<h2 id="3-使用pipenv来安装依赖"><a href="#3-使用pipenv来安装依赖" class="headerlink" title="3.使用pipenv来安装依赖"></a>3.使用pipenv来安装依赖</h2><p>使用Pipenv，不管你是否激活了虚拟环境，都可以通过pipenv install命令安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install flask flask-wtf  </span><br></pre></td></tr></table></figure>
+
+<p>事实上，对一个新项目来说，你不必手动使用pipenv install来创建虚拟环境。当使用pipenv install xxx直接安装依赖包时，如果当前目录不包含虚拟环境，Pipenv会自动创建一个。</p>
+<h2 id="4-在部署环境安装依赖"><a href="#4-在部署环境安装依赖" class="headerlink" title="4.在部署环境安装依赖"></a>4.在部署环境安装依赖</h2><p>使用Pipenv则只需要执行pipenv install，它会自动安装Pipfile中记录的依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install</span><br></pre></td></tr></table></figure>
+
+<p>不得不说，这里确实像极了node.js</p>
+<h2 id="5-区分开发依赖"><a href="#5-区分开发依赖" class="headerlink" title="5.区分开发依赖"></a>5.区分开发依赖</h2><p>使用Pipenv时，你只需要在安装pytest时添加一个–dev选项，它会自动被分类为开发依赖（写入Pipfile的dev-packages一节中）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install pytest --dev</span><br></pre></td></tr></table></figure>
+
+<p>在新的开发环境安装依赖时，也只需要在pipenv install命令后添加–dev选项即可一并安装开发依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install --dev</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-更换pipenv的安装源"><a href="#6-更换pipenv的安装源" class="headerlink" title="6 更换pipenv的安装源"></a>6 更换pipenv的安装源</h2><p><strong>安装Python包太慢？</strong></p>
+<p>A：Pipenv本身就是基于Pip，所以也可以更换PyPI源。只需要在Pipfile中更换对应的url即可。比如，下面的Pipfile使用阿里云提供的镜像源：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[source]]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://mirrors.aliyun.com/pypi/simple&quot;</span></span><br><span class="line"><span class="attr">verify_ssl</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;pypi&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>除了修改Pipfile，你也可以在执行安装命令时通过–pypi-mirror选项指定PyPI源，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install --pypi-mirror https://mirrors.aliyun.com/pypi/simple</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-指定Python的版本信息"><a href="#7-指定Python的版本信息" class="headerlink" title="7 指定Python的版本信息"></a>7 指定Python的版本信息</h3><p>在创建虚拟环境的时候，我们可以指定使用的python版本信息，类似<code>pyenv</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv --python 3</span><br><span class="line">$ pipenv --python 3.7</span><br><span class="line">$ pipenv --python 2.7.4</span><br></pre></td></tr></table></figure>
+
+<p><code>pipenv</code>会自动扫描系统寻找合适的版本信息，如果找不到的话，同时又安装了<code>pyenv</code>, 它会自动调用<code>pyenv</code>下载对应的版本的python。我是没有安装pyenv，所以pipenv会提示我指明相应版本Python对应的路径。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>为了让你更轻松的过渡，Pipenv甚至提供了读取和生成requirements.txt文件的功能（在使用pipenv install命令时它会自动读取requirements.txt文件安装依赖并生成Pipfile文件）。希望这篇文章可以让你更快的上手Pipenv。</p>
+<p>参考文档：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://crazygit.wiseturtles.com/2018/01/08/pipenv-tour/">https://crazygit.wiseturtles.com/2018/01/08/pipenv-tour/</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37581807">https://zhuanlan.zhihu.com/p/37581807</a></li>
+</ol>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/09/17/%E5%AE%89%E5%8D%93%E7%9A%84%E5%9F%BA%E7%A1%80%E6%96%87%E4%BB%B6/" target="_self">
+              <a href="/2019/10/22/%E5%9C%A8%E5%8D%9A%E5%AE%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>上一页</span>
               </a>
@@ -154,13 +214,35 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间"></i>
-              2020-09-17
+              2019-11-11
             </span>
             
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/Python/" title="Python">
+                        <b>#</b> Python
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Python/" title="Python">
+                        <b>#</b> Python
+                      </a>
+                    </span>
+                    
+                  </span>
+              
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2020/09/17/Pelican%E5%A6%82%E4%BD%95%E5%B0%86%E5%9B%BE%E7%89%87%E6%94%BE%E5%88%B0github%E6%9C%AC%E5%9C%B0/" target="_self">
+              <a href="/2020/09/17/%E5%AE%89%E5%8D%93%E7%9A%84%E5%9F%BA%E7%A1%80%E6%96%87%E4%BB%B6/" target="_self">
                 <span>下一页</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -170,6 +252,18 @@
       
     </div>
     
+  <div class="post-catalog" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85pipenv"><span class="toc-text">1.安装pipenv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%BF%80%E6%B4%BBpipenv-%E7%8E%AF%E5%A2%83"><span class="toc-text">2.激活pipenv 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8pipenv%E6%9D%A5%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">3.使用pipenv来安装依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%9C%A8%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">4.在部署环境安装依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8C%BA%E5%88%86%E5%BC%80%E5%8F%91%E4%BE%9D%E8%B5%96"><span class="toc-text">5.区分开发依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%9B%B4%E6%8D%A2pipenv%E7%9A%84%E5%AE%89%E8%A3%85%E6%BA%90"><span class="toc-text">6 更换pipenv的安装源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%8C%87%E5%AE%9APython%E7%9A%84%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-text">7 指定Python的版本信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
 
     
       <div class="comments-container">
