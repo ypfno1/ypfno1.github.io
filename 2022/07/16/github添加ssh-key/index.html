@@ -145,7 +145,7 @@
           
       </div>
       <div class="markdown-body">
-        <p>在使用hexo部署时候，需要用到github的push。先说明下github有2种连接方式，一种是端口为443的https连接，一种是端口为22的ssh链接。目前hexo貌似是没法用https的方式来。而这就需要在使用的设备上生成ssh keys，并将公钥添加到github网站。</p>
+        <p>在使用hexo部署时候，需要用到github的push。先说明下github有2种连接方式，一种是端口为443的https连接，一种是端口为22的ssh链接。目前hexo貌似是没法用https的方式来push。而这就需要在使用的设备上生成ssh keys，并将公钥添加到github网站。</p>
 <p>下面是如何添加的全部过程。</p>
 <p>当然了使用官方的说明是极好的，但我自己还是简要的阐述下正windows下的操作过程。免得要用的时候心急。</p>
 <p>官方说明的链接：<a target="_blank" rel="noopener" href="https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">github官网说明</a></p>
@@ -153,7 +153,7 @@
 <p>在cmd 或者 powershell 里输入 </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -al ~/.ssh</span></span><br></pre></td></tr></table></figure>
 
-<p>查看时候有类似 id_ed25519 这样标题的公钥和私钥。如果有就直接用，如果没有就创建一个。</p>
+<p>查看是否有类似 id_ed25519 这样标题的公钥和私钥。如果有就直接用，如果没有就创建一个。</p>
 <p>用如下里面了创建，-t后面是秘钥类型,-c 后面设置注释文字，比如邮箱。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t ed25519 -C <span class="string">&quot;your_email@example.com&quot;</span></span></span><br></pre></td></tr></table></figure>
 
