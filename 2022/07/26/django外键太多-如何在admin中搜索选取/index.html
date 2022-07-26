@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>归档: 2018 | 竹冉的博客</title>
+  <title>django外键太多 如何在admin中搜索选取 | 竹冉的博客</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -99,342 +99,122 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-    
-      
-        <!-- 第一篇文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2022</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="django外键太多 如何在admin中搜索选取">
-        <div class="time-m-d">07-26</div>
-        <div class="title">
-          <a href="/2022/07/26/django%E5%A4%96%E9%94%AE%E5%A4%AA%E5%A4%9A-%E5%A6%82%E4%BD%95%E5%9C%A8admin%E4%B8%AD%E6%90%9C%E7%B4%A2%E9%80%89%E5%8F%96/">
-            <span>django外键太多 如何在admin中搜索选取</span>
-          </a>
-        </div>
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">django外键太多 如何在admin中搜索选取</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2022-07-26
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/django/" title="django">
+                    <b>#</b> django
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/django/" title="django">
+                    <b>#</b> django
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      
-      <div class="post-item" title="git的本地版本回滚 以及取消回滚">
-        <div class="time-m-d">07-19</div>
-        <div class="title">
-          <a href="/2022/07/19/git%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E5%9B%9E%E6%BB%9A-%E4%BB%A5%E5%8F%8A%E5%8F%96%E6%B6%88%E5%9B%9E%E6%BB%9A/">
-            <span>git的本地版本回滚 以及取消回滚</span>
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p>django是个逻辑缜密的好东西，但因为集成度太高，导致深度修改和使用的时候有点费劲。周末遇到个问题，就是一个字段里面有外键，但外键本身已经非常多了，超过一万。在admin中根本无法选取，django可以把下拉菜单，变成搜索选择框。</p>
+<p>在admin.py 中的修改admin 类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> ArticlePost</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> pan</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleAdmin</span>(<span class="params">admin.ModelAdmin</span>):</span></span><br><span class="line">    search_fields = (<span class="string">&#x27;title&#x27;</span>,)     <span class="comment">#作为外键，必须设置搜索字段，作为下面搜索的对象</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PanAdmin</span>(<span class="params">admin.ModelAdmin</span>):</span>       </span><br><span class="line">    autocomplete_fields = [<span class="string">&#x27;post&#x27;</span>]  <span class="comment">#这个post是外键的字段名</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">admin.site.register(ArticlePost,ArticleAdmin)</span><br><span class="line">admin.site.register(pan,PanAdmin)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>另外记录下如何在模型中设置外键为搜索栏。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PanAdmin</span>(<span class="params">admin.ModelAdmin</span>):</span>    </span><br><span class="line">    search_fields = (<span class="string">&#x27;title&#x27;</span>,<span class="string">&#x27;post__title&#x27;</span>) <span class="comment">#使用 &#x27;外键名__外键所属模型的搜索字段&#x27; 这样的格式，如&#x27;post__title&#x27;，注意是2个下划线，不是一个。</span></span><br></pre></td></tr></table></figure>
+
+
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/07/19/git%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E5%9B%9E%E6%BB%9A-%E4%BB%A5%E5%8F%8A%E5%8F%96%E6%B6%88%E5%9B%9E%E6%BB%9A/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2022-07-26
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/django/" title="django">
+                        <b>#</b> django
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/django/" title="django">
+                        <b>#</b> django
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
     
-      
-      <div class="post-item" title="如何防止python代码被盗">
-        <div class="time-m-d">07-18</div>
-        <div class="title">
-          <a href="/2022/07/18/%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2python%E4%BB%A3%E7%A0%81%E8%A2%AB%E7%9B%97/">
-            <span>如何防止python代码被盗</span>
-          </a>
-        </div>
-      </div>
+
     
-      
-      <div class="post-item" title="Hexo 中完美插入本地图片">
-        <div class="time-m-d">07-16</div>
-        <div class="title">
-          <a href="/2022/07/16/Hexo-%E4%B8%AD%E5%AE%8C%E7%BE%8E%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/">
-            <span>Hexo 中完美插入本地图片</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="github添加ssh key">
-        <div class="time-m-d">07-16</div>
-        <div class="title">
-          <a href="/2022/07/16/github%E6%B7%BB%E5%8A%A0ssh-key/">
-            <span>github添加ssh key</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="纪念下结束的日子">
-        <div class="time-m-d">07-10</div>
-        <div class="title">
-          <a href="/2022/07/10/%E7%BA%AA%E5%BF%B5%E4%B8%8B%E7%BB%93%E6%9D%9F%E7%9A%84%E6%97%A5%E5%AD%90/">
-            <span>纪念下结束的日子</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="一只小橘猫">
-        <div class="time-m-d">07-07</div>
-        <div class="title">
-          <a href="/2022/07/07/%E4%B8%80%E5%8F%AA%E5%B0%8F%E6%A9%98%E7%8C%AB/">
-            <span>一只小橘猫</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="上海疫情">
-        <div class="time-m-d">05-16</div>
-        <div class="title">
-          <a href="/2022/05/16/%E4%B8%8A%E6%B5%B7%E7%96%AB%E6%83%85/">
-            <span>上海疫情</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="2021年的国庆节">
-        <div class="time-m-d">10-02</div>
-        <div class="title">
-          <a href="/2021/10/02/2021%E5%B9%B4%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/">
-            <span>2021年的国庆节</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="南宁和阳江之旅">
-        <div class="time-m-d">09-13</div>
-        <div class="title">
-          <a href="/2021/09/13/%E5%8D%97%E5%AE%81%E5%92%8C%E9%98%B3%E6%B1%9F%E4%B9%8B%E6%97%85/">
-            <span>南宁和阳江之旅</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="量化模型的一些思考">
-        <div class="time-m-d">03-12</div>
-        <div class="title">
-          <a href="/2021/03/12/%E9%87%8F%E5%8C%96%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
-            <span>量化模型的一些思考</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="关于焦虑症的思考">
-        <div class="time-m-d">02-22</div>
-        <div class="title">
-          <a href="/2021/02/22/%E5%85%B3%E4%BA%8E%E7%84%A6%E8%99%91%E7%97%87%E7%9A%84%E6%80%9D%E8%80%83/">
-            <span>关于焦虑症的思考</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="2020年最后一天的遐想">
-        <div class="time-m-d">12-31</div>
-        <div class="title">
-          <a href="/2020/12/31/2020%E5%B9%B4%E6%9C%80%E5%90%8E%E4%B8%80%E5%A4%A9%E7%9A%84%E9%81%90%E6%83%B3/">
-            <span>2020年最后一天的遐想</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hexo使用指南">
-        <div class="time-m-d">12-24</div>
-        <div class="title">
-          <a href="/2020/12/24/Hexo%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
-            <span>Hexo使用指南</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="2020年的国庆">
-        <div class="time-m-d">10-09</div>
-        <div class="title">
-          <a href="/2020/10/09/2020%E5%B9%B4%E7%9A%84%E5%9B%BD%E5%BA%86/">
-            <span>2020年的国庆</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="想做的事情">
-        <div class="time-m-d">09-20</div>
-        <div class="title">
-          <a href="/2020/09/20/%E6%83%B3%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85/">
-            <span>想做的事情</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="2020上海街拍">
-        <div class="time-m-d">09-19</div>
-        <div class="title">
-          <a href="/2020/09/19/2020%E4%B8%8A%E6%B5%B7%E8%A1%97%E6%8B%8D/">
-            <span>2020上海街拍</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Pelican如何将图片放到github本地">
-        <div class="time-m-d">09-17</div>
-        <div class="title">
-          <a href="/2020/09/17/Pelican%E5%A6%82%E4%BD%95%E5%B0%86%E5%9B%BE%E7%89%87%E6%94%BE%E5%88%B0github%E6%9C%AC%E5%9C%B0/">
-            <span>Pelican如何将图片放到github本地</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="安卓的基础文件">
-        <div class="time-m-d">09-17</div>
-        <div class="title">
-          <a href="/2020/09/17/%E5%AE%89%E5%8D%93%E7%9A%84%E5%9F%BA%E7%A1%80%E6%96%87%E4%BB%B6/">
-            <span>安卓的基础文件</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="pipenv的使用">
-        <div class="time-m-d">11-11</div>
-        <div class="title">
-          <a href="/2019/11/11/pipenv%E7%9A%84%E4%BD%BF%E7%94%A8/">
-            <span>pipenv的使用</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Pelican如何将图片放到github本地">
-        <div class="time-m-d">10-22</div>
-        <div class="title">
-          <a href="/2019/10/22/%E5%9C%A8%E5%8D%9A%E5%AE%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/">
-            <span>Pelican如何将图片放到github本地</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="上海街拍">
-        <div class="time-m-d">07-26</div>
-        <div class="title">
-          <a href="/2019/07/26/%E4%B8%8A%E6%B5%B7%E8%A1%97%E6%8B%8D/">
-            <span>上海街拍</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="惊恐症">
-        <div class="time-m-d">07-26</div>
-        <div class="title">
-          <a href="/2019/07/26/%E6%83%8A%E6%81%90%E7%97%87/">
-            <span>惊恐症</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="回苏州">
-        <div class="time-m-d">01-30</div>
-        <div class="title">
-          <a href="/2019/01/30/%E5%9B%9E%E8%8B%8F%E5%B7%9E%E7%9A%84%E6%84%9F%E5%8F%97/">
-            <span>回苏州</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2018</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="南美之旅">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/2018/12/01/%E5%8D%97%E7%BE%8E%E4%B9%8B%E6%97%85/">
-            <span>南美之旅</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="离开圭亚那前的想法">
-        <div class="time-m-d">11-22</div>
-        <div class="title">
-          <a href="/2018/11/22/%E5%9C%A8%E5%9C%AD%E4%BA%9A%E9%82%A3%E6%9C%80%E5%90%8E%E6%97%A5%E5%AD%90%E7%9A%84%E6%83%B3%E6%B3%95/">
-            <span>离开圭亚那前的想法</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="git 常用操作">
-        <div class="time-m-d">11-20</div>
-        <div class="title">
-          <a href="/2018/11/20/git%20%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
-            <span>git 常用操作</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="快速操作Linux终端命令行的快捷键">
-        <div class="time-m-d">11-17</div>
-        <div class="title">
-          <a href="/2018/11/17/%E5%BF%AB%E9%80%9F%E6%93%8D%E4%BD%9CLinux%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/">
-            <span>快速操作Linux终端命令行的快捷键</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="使用Pelican 和 Markdown来制作博客">
-        <div class="time-m-d">11-14</div>
-        <div class="title">
-          <a href="/2018/11/14/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">
-            <span>使用Pelican 和 Markdown来制作博客</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
