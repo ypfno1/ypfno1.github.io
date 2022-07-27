@@ -6,8 +6,10 @@
   <meta name="author" content="zchengsite, 1451426471@qq.com" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
+    <meta name="robots" content="noindex" />
   
-  <title>如何从远端拉取分支，拉取后再拉取其他分支 | 竹冉的博客</title>
+  
+  <title>竹冉的博客</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -99,135 +101,32 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">如何从远端拉取分支，拉取后再拉取其他分支</div>
-      <div class="post-attach">
-        <span class="post-pubtime">
-          <i class="iconfont icon-updatetime" title="更新时间"></i>
-          2022-07-26
-        </span>
-        
-              <span class="post-categories">
-                <i class="iconfont icon-bookmark" title="分类"></i>
-                
-                <span class="span--category">
-                  <a href="/categories/git/" title="git">
-                    <b>#</b> git
-                  </a>
-                </span>
-                
-              </span>
-          
-              <span class="post-tags">
-                <i class="iconfont icon-tags" title="标签"></i>
-                
-                <span class="span--tag">
-                  <a href="/tags/git/" title="git">
-                    <b>#</b> git
-                  </a>
-                </span>
-                
-              </span>
-          
-      </div>
-      <div class="markdown-body">
-        <p>如果什么都不设置从远端直接clone是，是拉取的main分支。如果只要拉取其他分支。可以用以下命令。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b dev git@github.com:ypfno1/perfect.git</span><br></pre></td></tr></table></figure>
-
-<p>但一般还是直接clone main分支比较好，clone到本地后，再根据远端dev分支来创建本地的分支。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a </span><br></pre></td></tr></table></figure>
-
-<p>可以查看所有本地和远端的分支。然后</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch dev origin/dev</span><br></pre></td></tr></table></figure>
-
-<p>根据远端dev分支来创建本地的分支。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev origin/dev</span><br></pre></td></tr></table></figure>
-
-<p>也是可以的，你知道的吧，哈哈。我感觉我有点啰嗦了，但还是怕自己蠢。</p>
-<p>如果你最开始拉取的是dev 现在想再创建个main，是一样的额。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch main origin/main</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以了。你学废了吗！</p>
-
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
+        <div class="container index">
+  <div class="post-list">
+    <!-- 遍历渲染文章 -->
+    
+      <div class="post-item" title="使用Pelican 和 Markdown来制作博客">
+        <div class="time-m-d">2018-11-14</div>
+        <div class="title">
+          <a href="/2018/11/14/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/">
             
-              <a href="/2022/07/26/django%E5%A4%96%E9%94%AE%E5%A4%AA%E5%A4%9A-%E5%A6%82%E4%BD%95%E5%9C%A8admin%E4%B8%AD%E6%90%9C%E7%B4%A2%E9%80%89%E5%8F%96/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>上一页</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-            <span class="post-pubtime">
-              <i class="iconfont icon-updatetime" title="更新时间"></i>
-              2022-07-26
-            </span>
-            
-                  <span class="post-categories">
-                    <i class="iconfont icon-bookmark" title="分类"></i>
-                    
-                    <span class="span--category">
-                      <a href="/categories/git/" title="git">
-                        <b>#</b> git
-                      </a>
-                    </span>
-                    
-                  </span>
               
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags" title="标签"></i>
-                    
-                    <span class="span--tag">
-                      <a href="/tags/git/" title="git">
-                        <b>#</b> git
-                      </a>
-                    </span>
-                    
-                  </span>
+                <span>使用Pelican 和 Markdown来制作博客</span>
               
-          </div>
-          <div class="post-foot-prev">
             
-              <a href="/2022/07/27/git%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-%E4%BB%A5%E5%8F%8Apull%E4%B9%8B%E5%90%8E%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
+          </a>
         </div>
-      
-    </div>
-    
-
-    
-      <div class="comments-container">
-        
-
-
-
-
-
       </div>
     
   </div>
-
+  <nav class="post-navigation">
+    
+      <a href="/page/3/"><i class="iconfont icon-angleleft"></i></a>
+    
+    <span class="page-num">4 / 4</span>
+    
+  </nav>
+</div>
 
         <div class="footer">
   <div class="social">

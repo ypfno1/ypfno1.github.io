@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>如何从远端拉取分支，拉取后再拉取其他分支 | 竹冉的博客</title>
+  <title>git的工作流程 以及pull之后冲突的解决方案 | 竹冉的博客</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -114,11 +114,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">如何从远端拉取分支，拉取后再拉取其他分支</div>
+      <div class="post-title">git的工作流程 以及pull之后冲突的解决方案</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间"></i>
-          2022-07-26
+          2022-07-27
         </span>
         
               <span class="post-categories">
@@ -145,30 +145,37 @@
           
       </div>
       <div class="markdown-body">
-        <p>如果什么都不设置从远端直接clone是，是拉取的main分支。如果只要拉取其他分支。可以用以下命令。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b dev git@github.com:ypfno1/perfect.git</span><br></pre></td></tr></table></figure>
+        <p>作为一个个人开发者，Git的工作流程还是以简单实用为主。基本就是一个main分支和一个dev分支。平时在dev分支上开发，dev开发稳定了再merge到main分支上。然后继续到dev上开发。</p>
+<p>如下图是标准的多人分支管理策略，有点复杂。我自己用的话就简单了，因为只有我一个人，不会有和其他人冲突的问题。</p>
+<p><img src="1.png" alt="1"></p>
+<p>我一般是有几个电脑，在每次开始前，先pull origin将本地workspace 更新到与远端一致，就可以开始干活了。干完再commit 和 push origin 一下就行了。</p>
+<p>但有时候pull origin的时候，会出现overwrite的错误。这一般是因为，本地文件在pull之前就被改动过。这时候需要使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
 
-<p>但一般还是直接clone main分支比较好，clone到本地后，再根据远端dev分支来创建本地的分支。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a </span><br></pre></td></tr></table></figure>
+<p>保存当前工作进度，会把暂存区和工作区的改动保存起来。执行完这个命令后，在运行<code>git status</code>命令，就会发现当前是一个干净的工作区，没有任何改动。使用<code>git stash save &#39;message...&#39;</code>可以添加一些注释.</p>
+<p>用了这个命令之后，你的工作区就会回到最近一次git pull之后的干净状态。这时你就可以再pull origin了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
 
-<p>可以查看所有本地和远端的分支。然后</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch dev origin/dev</span><br></pre></td></tr></table></figure>
 
-<p>根据远端dev分支来创建本地的分支。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev origin/dev</span><br></pre></td></tr></table></figure>
+<p>显示保存进度的列表。也就意味着，git stash命令可以多次执行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop [–index] [stash_id]</span><br></pre></td></tr></table></figure>
 
-<p>也是可以的，你知道的吧，哈哈。我感觉我有点啰嗦了，但还是怕自己蠢。</p>
-<p>如果你最开始拉取的是dev 现在想再创建个main，是一样的额。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch main origin/main</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop </span><br></pre></td></tr></table></figure>
 
-<p>这样就可以了。你学废了吗！</p>
+<p>恢复最新的进度到工作区。git默认会把工作区和暂存区的改动都恢复到工作区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop --index </span><br></pre></td></tr></table></figure>
+
+<p>恢复最新的进度到工作区和暂存区。（尝试将原来暂存区的改动还恢复到暂存区）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop stash@&#123;1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>恢复指定的进度到工作区。stash_id是通过git stash list命令得到的<br>通过git stash pop命令恢复进度后，会删除当前进度。</p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2022/07/26/django%E5%A4%96%E9%94%AE%E5%A4%AA%E5%A4%9A-%E5%A6%82%E4%BD%95%E5%9C%A8admin%E4%B8%AD%E6%90%9C%E7%B4%A2%E9%80%89%E5%8F%96/" target="_self">
+              <a href="/2022/07/26/%E5%A6%82%E4%BD%95%E4%BB%8E%E8%BF%9C%E7%AB%AF%E6%8B%89%E5%8F%96%E5%88%86%E6%94%AF%EF%BC%8C%E6%8B%89%E5%8F%96%E5%90%8E%E5%86%8D%E6%8B%89%E5%8F%96%E5%85%B6%E4%BB%96%E5%88%86%E6%94%AF/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>上一页</span>
               </a>
@@ -177,7 +184,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间"></i>
-              2022-07-26
+              2022-07-27
             </span>
             
                   <span class="post-categories">
@@ -204,11 +211,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2022/07/27/git%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-%E4%BB%A5%E5%8F%8Apull%E4%B9%8B%E5%90%8E%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
