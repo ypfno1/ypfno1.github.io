@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="zchengsite, 1451426471@qq.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <title>Django 修改后台models的名称和排序 | 竹冉的博客</title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-24071240-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-24071240-2');
+    </script>
+  
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Zhuran</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Django 修改后台models的名称和排序</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2022-07-29
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/django/" title="django">
+                    <b>#</b> django
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/django/" title="django">
+                    <b>#</b> django
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>要修改admin后台中models的名称非常简单，就是在models的元类中添加verbose_name_plural字段即可，而修改排序的其中一种方法也和这个字段有关。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span>       </span><br><span class="line">    verbose_name_plural = <span class="string">&#x27;   中文名称&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>而要修改models在admin中的排序，有以下4种方法</p>
+<ul>
+<li>在 <strong>每个</strong> APP model 里为 Meta 类下的 <code>verbose_name_plural</code> 字段添加 <strong>数字前缀或者英文空格</strong> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21578382/reorder-model-objects-in-django-admin-panel">参考</a></li>
+<li>重写 <code>admin/base.html</code> 模板页面 <a target="_blank" rel="noopener" href="https://jamiecounsell.me/sort-apps-in-the-django-admin/">参考</a></li>
+<li>重写 <code>AdminSite</code> 类的 <code>index()</code> 方法 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8893755/defining-a-custom-app-list-in-django-admin-index-page/">参考</a></li>
+<li>重新 <code>AdminSite</code> 类的 <code>get_app_list()</code> 方法 <a target="_blank" rel="noopener" href="https://books.agiliq.com/projects/django-admin-cookbook/en/latest/set_ordering.html">参考</a></li>
+</ul>
+<p>实测有用的，最简单的第一种方法就是往verbose_name_plural 这个字段中添加英文空格，空格加的越多排序越往上。这个方法的好处是可以随时方便地修改排序。算是一种dirty trick吧，admin本来就是给自己看的，管用没有副作用就行。</p>
+<p>当然如果你非要装个B可以采用2-4的方法。本文再详细记录下第三种方法。算是学习下思路吧，但对解决本问题，除了复杂容易出错外，其实并没有什么卵用。</p>
+<p>Django 源码 Admin 主页渲染的 <code>app_list</code> 列表是由 <code>get_app_list()</code> 方法按 <strong>字母排序</strong> 后返回的结果</p>
+<p>所以只需要对 <code>app_list</code> 进行排序即可</p>
+<p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.1/_modules/django/contrib/admin/sites/">https://docs.djangoproject.com/en/2.1/_modules/django/contrib/admin/sites/</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>(<span class="params">self, request, extra_context=None</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Display the main admin index page, which lists all of the installed</span></span><br><span class="line"><span class="string">    apps that have been registered in this site.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    app_list = self.get_app_list(request)</span><br><span class="line"></span><br><span class="line">    context = &#123;</span><br><span class="line">        **self.each_context(request),</span><br><span class="line">        <span class="string">&#x27;title&#x27;</span>: self.index_title,</span><br><span class="line">        <span class="string">&#x27;app_list&#x27;</span>: app_list,</span><br><span class="line">        **(extra_context <span class="keyword">or</span> &#123;&#125;),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    request.current_app = self.name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TemplateResponse(request, self.index_template <span class="keyword">or</span> <span class="string">&#x27;admin/index.html&#x27;</span>, context)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>首先参考官方文档覆盖 Django Admin 的 <code>AdminSite</code> 类：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#overriding-the-default-admin-site">https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#overriding-the-default-admin-site</a></p>
+<p>项目名称 <code>zerone</code></p>
+<p>在 <code>zerone/</code> 子目录下创建 <code>zerone/admin.py</code> 文件，重写 <code>AdminSite</code> 的 <code>index()</code> 方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdminSite</span>(<span class="params">admin.AdminSite</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span>(<span class="params">self, request, extra_context=None</span>):</span></span><br><span class="line">        <span class="keyword">if</span> extra_context <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            extra_context = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        app_list = self.get_app_list(request)</span><br><span class="line">        app_dict = self._build_app_dict(request)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># dict_keys([&#x27;equipment&#x27;, &#x27;liveos&#x27;, &#x27;clone&#x27;, &#x27;oauth2_provider&#x27;, &#x27;auth&#x27;])</span></span><br><span class="line">        print(app_list, app_dict.keys())</span><br><span class="line"></span><br><span class="line">        extra_context[<span class="string">&#x27;app_list&#x27;</span>] = app_list</span><br><span class="line">        <span class="keyword">return</span> super(MyAdminSite, self).index(request, extra_context)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>创建 <code>zerone/apps.py</code> 文件，自定义 <code>AdminConfig</code> 配置名称：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.admin.apps <span class="keyword">import</span> AdminConfig</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdminConfig</span>(<span class="params">AdminConfig</span>):</span></span><br><span class="line">    default_site = <span class="string">&#x27;zerone.admin.MyAdminSite&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用刚在 <code>zerone/apps.py</code> 自定义的 APP 配置名称，替换默认的 <code>django.contrib.admin</code></p>
+<p>修改 <code>zerone/settings.py</code> ：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">&#x27;zerone.apps.MyAdminConfig&#x27;</span>,  <span class="comment"># replaces &#x27;django.contrib.admin&#x27;</span></span><br><span class="line">    ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>重写 <code>AdminSite</code> 的 <code>index()</code> 方法之前，先查看一下默认 <code>app_dict</code> 包含的 <strong>所有</strong> APP 名称：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app_list = self.get_app_list(request)</span><br><span class="line">app_dict = self._build_app_dict(request)</span><br><span class="line">print(app_list, app_dict.keys())</span><br><span class="line"></span><br><span class="line"><span class="comment"># dict_keys([&#x27;equipment&#x27;, &#x27;liveos&#x27;, &#x27;clone&#x27;, &#x27;oauth2_provider&#x27;, &#x27;auth&#x27;])</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>默认 <code>get_app_list()</code> 按照字母排序的 APP 顺序是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;auth&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;oauth2_provider&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;clone&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;equipment&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;liveos&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后根据上面显示的 <strong>所有</strong> APP 名称，自定义 APP 的排序列表：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apps_order_list = [<span class="string">&#x27;equipment&#x27;</span>, <span class="string">&#x27;liveos&#x27;</span>, <span class="string">&#x27;clone&#x27;</span>, <span class="string">&#x27;oauth2_provider&#x27;</span>, <span class="string">&#x27;auth&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后就是根据自定义的 <code>apps_order_list</code> 对默认的 <code>app_list</code> 进行排序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line">apps_order_list = [<span class="string">&#x27;equipment&#x27;</span>, <span class="string">&#x27;liveos&#x27;</span>, <span class="string">&#x27;clone&#x27;</span>, <span class="string">&#x27;oauth2_provider&#x27;</span>, <span class="string">&#x27;auth&#x27;</span>]</span><br><span class="line">apps_order_dict = &#123; app: index <span class="keyword">for</span> index, app <span class="keyword">in</span> enumerate(apps_order_list) &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdminSite</span>(<span class="params">admin.AdminSite</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span>(<span class="params">self, request, extra_context=None</span>):</span></span><br><span class="line">        <span class="keyword">if</span> extra_context <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            extra_context = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        app_list = self.get_app_list(request)</span><br><span class="line">        app_dict = self._build_app_dict(request)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># dict_keys([&#x27;equipment&#x27;, &#x27;liveos&#x27;, &#x27;clone&#x27;, &#x27;oauth2_provider&#x27;, &#x27;auth&#x27;])</span></span><br><span class="line">        print(app_dict.keys())</span><br><span class="line"></span><br><span class="line">        <span class="comment"># https://stackoverflow.com/questions/15650348/sorting-a-list-of-dictionaries-based-on-the-order-of-values-of-another-list</span></span><br><span class="line">        <span class="comment"># https://docs.python.org/3/howto/sorting.html</span></span><br><span class="line">        app_list.sort(key=<span class="keyword">lambda</span> element_dict:apps_order_dict[element_dict[<span class="string">&quot;app_label&quot;</span>]])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(app_list)</span></span><br><span class="line"></span><br><span class="line">        extra_context[<span class="string">&#x27;app_list&#x27;</span>] = app_list</span><br><span class="line">        <span class="keyword">return</span> super(MyAdminSite, self).index(request, extra_context)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>DONE</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/07/27/git%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-%E4%BB%A5%E5%8F%8Apull%E4%B9%8B%E5%90%8E%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2022-07-29
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/django/" title="django">
+                        <b>#</b> django
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/django/" title="django">
+                        <b>#</b> django
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="http://www.daofilm.com/">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="http://www.daofilm.com/">Copyright © Zhuran 2020</a>
+    </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="http://www.daofilm.com/">Theme by Zhuran | Powered by Hexo</a>
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
