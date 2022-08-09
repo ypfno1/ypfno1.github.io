@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>分类: django | 竹冉的博客</title>
+  <title>如何快速生成目录结构图 | 竹冉的博客</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -99,48 +99,124 @@
 
 
       <div class="flex-container">
-        <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<div class="container category-details">
-  <div class="content-title">
-    <h2>
-      <span>django</span>
-    </h2>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">如何快速生成目录结构图</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2022-08-01
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术">
+                    <b>#</b> 技术
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/cmd/" title="cmd">
+                    <b>#</b> cmd
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>首先要说明的是只能用cmd。powershell测试不行。</p>
+<p>1.win+r 快捷键 输入cmd 打开命令提示符<br>2.cd 文件路径 找到对应文件夹路径<br>3.打出命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">tree/f&gt;</span><span class="bash">file.txt</span></span><br></pre></td></tr></table></figure>
+
+<p> 回车<br>4.在对应文件夹下会出生成一个file.txt<br>完事儿</p>
+<p>你会得到一个文本描述的目录图。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/08/01/%E5%9C%A8python%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8D%95%E7%8B%AC%E4%BD%BF%E7%94%A8Django-ORM/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2022-08-01
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术">
+                        <b>#</b> 技术
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/cmd/" title="cmd">
+                        <b>#</b> cmd
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/08/08/python%E8%B7%AF%E5%BE%84%E6%9F%A5%E6%89%BE%20anaconda%E5%8C%85%E4%BD%8D%E7%BD%AE/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
   </div>
-  
-    <div class="post-list">
-      <div class="post-item" title="在python脚本中单独使用Django ORM">
-        <span class="time-m-d">2022-08-01</span>
-        <a href="/2022/08/01/%E5%9C%A8python%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8D%95%E7%8B%AC%E4%BD%BF%E7%94%A8Django-ORM/">
-          <span>在python脚本中单独使用Django ORM</span>
-        </a>
-      </div>
-    </div>
-  
-    <div class="post-list">
-      <div class="post-item" title="Django 修改后台models的名称和排序">
-        <span class="time-m-d">2022-07-29</span>
-        <a href="/2022/07/29/Django-%E4%BF%AE%E6%94%B9%E5%90%8E%E5%8F%B0models%E7%9A%84%E5%90%8D%E7%A7%B0%E5%92%8C%E6%8E%92%E5%BA%8F/">
-          <span>Django 修改后台models的名称和排序</span>
-        </a>
-      </div>
-    </div>
-  
-    <div class="post-list">
-      <div class="post-item" title="django外键太多 如何在admin中搜索选取">
-        <span class="time-m-d">2022-07-26</span>
-        <a href="/2022/07/26/django%E5%A4%96%E9%94%AE%E5%A4%AA%E5%A4%9A-%E5%A6%82%E4%BD%95%E5%9C%A8admin%E4%B8%AD%E6%90%9C%E7%B4%A2%E9%80%89%E5%8F%96/">
-          <span>django外键太多 如何在admin中搜索选取</span>
-        </a>
-      </div>
-    </div>
-  
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+
 
         <div class="footer">
   <div class="social">
