@@ -154,8 +154,10 @@
 
 <p>然后就好了，你在xftp或者xshell中选择用秘钥登录即可。</p>
 <p><img src="2.png" alt="1"></p>
-<p>顺便说下Ubuntu上的.ssh/authorized_keys 文件你在xftp中的位置是 /root/.ssh 因为.ssh是隐藏文件所以如果要显示必须在xftp工具=》选项中设置。</p>
+<p>顺便说下Ubuntu上的.ssh/authorized_keys 文件你在xftp中的位置是 /root/.ssh 因为.ssh是隐藏文件所以如果要显示必须在xftp工具=》选项中设置显示隐藏文件。</p>
 <p><img src="3.png" alt="1"></p>
+<p>还有就是老版本的ubuntu服务器比如 18.04 在cd ~/.ssh 这个位置，也就是 /root/下是没有.ssh文件夹的，需要手动创建，并创建其中的”authorized_keys” 空白文件，然后再执行上面的命令。</p>
+<p>说了半天，客户端都是win10，如果客户端是Linux的话，我再写一篇来专门说怎么搞。</p>
 <p>如果要删除服务器上的公钥的话，vultr官网上说只能，手动去删除.ssh/authorized_keys上对应的公钥字符串。但你要小心如果这时候你已经关闭了密码登录，那就没法登录了。只能重新安装实例了。</p>
 <p>关闭ssh密码登录</p>
 <p>修改配置文件/etc/ssh/sshd_config</p>
