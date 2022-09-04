@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="zchengsite, 1451426471@qq.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <title>UFW的详细使用 | 竹冉的博客</title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-24071240-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-24071240-2');
+    </script>
+  
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Zhuran</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">UFW的详细使用</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2022-08-30
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/Linux/" title="Linux">
+                    <b>#</b> Linux
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Linux/" title="Linux">
+                    <b>#</b> Linux
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>UFW，或称Uncomplicated Firewall，是iptables的一个接口，为不熟悉防火墙概念的初学者提供了易于使用的界面，同时支持IPv4和IPv6，广受欢迎。</p>
+<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><ul>
+<li>任意一台安装有Linux发行版的主机</li>
+<li>root权限（以下命令默认在root账户下运行，如果是其他账户，使用sudo也是一样的）</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Ubuntu-amp-Debian"><a href="#Ubuntu-amp-Debian" class="headerlink" title="Ubuntu &amp; Debian"></a>Ubuntu &amp; Debian</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># apt-get install ufw -y</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><p>CentOS默认软件源不提供UFW，所以你需要安装EPEL软件源，运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install epel-release -y</span></span><br></pre></td></tr></table></figure>
+
+<p>安装完成后使用以下命令安装UFW：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install --enablerepo=&quot;epel&quot; ufw -y</span></span><br></pre></td></tr></table></figure>
+
+<p>UFW安装后，可以通过以下命令来启动UFW服务并使其在启动时启动（一般在完成默认配置后再重启）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw enable</span></span><br></pre></td></tr></table></figure>
+
+<p>如果运行ufw命令时报<code>Command Not Found</code>错误，可以使用<code>whereis ufw</code>来确定ufw的位置，之后你也可以顺手设置一下alias。<br>接下来，使用以下命令检查UFW的状态，可以看到以下输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw status </span></span><br><span class="line">Status: active</span><br></pre></td></tr></table></figure>
+
+<p>还可以通过运行以下命令来禁用UFW防火墙（后面可以通过enable命令随时启用服务）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw disable</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你决定要重新开始，则可以使用reset命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw reset</span></span><br></pre></td></tr></table></figure>
+
+<p>这将禁用UFW并删除之前定义的任何规则。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>最新版的UFW默认启用了IPV6配置，你也可以通过以下命令进行检查，可以看到以下输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/default/ufw | grep -i ipv6</span></span><br><span class="line">IPV6=yes</span><br></pre></td></tr></table></figure>
+
+<p>如果输出为<code>IPV6=no</code>，可以使用vim编辑该文件将其改为yes。</p>
+<h3 id="第一步：设置UFW默认策略"><a href="#第一步：设置UFW默认策略" class="headerlink" title="第一步：设置UFW默认策略"></a>第一步：设置UFW默认策略</h3><p>默认情况下，UFW默认策略设置为阻止所有传入流量并允许所有传出流量，你可以使用以下命令来设置自己的默认策略：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw default allow outgoing </span></span><br><span class="line"><span class="comment"># ufw default deny incoming</span></span><br></pre></td></tr></table></figure>
+
+<p>如果现在重启机器（这会儿不要这么做），UFW配置会在重启后生效，它将拒绝所有传入的连接。因为我们没有允许SSH连接，这意味着，重启过后我们将无法远程连接到服务器。如果我们希望服务器响应这些类型的请求，我们就需要明确指定允许传入连接的规则 （例如SSH或HTTP连接）。</p>
+<h3 id="第二步：设置SSH或其他规则"><a href="#第二步：设置SSH或其他规则" class="headerlink" title="第二步：设置SSH或其他规则"></a>第二步：设置SSH或其他规则</h3><p>要将防火墙配置为允许传入SSH连接，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow ssh</span></span><br></pre></td></tr></table></figure>
+
+<p>这将创建防火墙规则-允许端口22上的所有连接，这是SSH守护程序默认监听的端口，类似的快捷指令还有 <code>ufw allow http</code>、<code>ufw allow https</code>。</p>
+<p>实际上也可以通过直接指定端口来创建等效规则，下面这条命令将产生相同的结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow 22</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你的SSH守护程序配置在其他端口，则需要手动指定相应的端口。</p>
+<h3 id="第三步：其他规则的设置"><a href="#第三步：其他规则的设置" class="headerlink" title="第三步：其他规则的设置"></a>第三步：其他规则的设置</h3><p>UFW可以基于TCP或UDP协议来过滤数据包，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow 80/tcp</span></span><br><span class="line"><span class="comment"># ufw allow 21/udp</span></span><br></pre></td></tr></table></figure>
+
+<p>之后使用以下命令检查已添加规则的状态，应该可以看到如下输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw status verbose</span></span><br><span class="line">Status: active</span><br><span class="line">Logging: on (low)</span><br><span class="line">Default: deny (incoming), allow (outgoing), deny (routed)</span><br><span class="line">New profiles: skip</span><br><span class="line">To                         Action      From</span><br><span class="line">80/tcp                     ALLOW IN    Anywhere</span><br><span class="line">21/udp                     ALLOW IN    Anywhere</span><br><span class="line">80/tcp (v6)                ALLOW IN    Anywhere (v6)</span><br><span class="line">21/udp (v6)                ALLOW IN    Anywhere (v6)</span><br></pre></td></tr></table></figure>
+
+<p>还可以使用以下命令随时拒绝指定端口任何传入和传出的流量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw deny 80</span></span><br><span class="line"><span class="comment"># ufw deny 21</span></span><br></pre></td></tr></table></figure>
+
+<p>如果要删除HTTP允许的规则，只需在原始规则前加上delete即可，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw delete allow http</span></span><br><span class="line"><span class="comment"># ufw delete deny 21</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以按编号删除规则，使用以下命令查看规则及其编号：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw status numbered</span></span><br><span class="line">OutputStatus: active</span><br><span class="line">     To                         Action      From</span><br><span class="line">     --                         ------      ----</span><br><span class="line">[ 1] 22/tcp                     ALLOW IN    Anywhere</span><br><span class="line">[ 2] 443/tcp                    ALLOW IN    Anywhere</span><br><span class="line">[ 3] 22/tcp (v6)                ALLOW IN    Anywhere (v6)</span><br><span class="line">[ 4] 443/tcp (v6)               ALLOW IN    Anywhere (v6)</span><br></pre></td></tr></table></figure>
+
+<p>举个例子，要删除允许端口443上的HTTPS连接规则，也就是编号2（注意删除完规则后编号会更新）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw delete 2</span></span><br></pre></td></tr></table></figure>
+
+<p>在设置完规则后，重启机器即可完成UFW配置。</p>
+<h2 id="更进一步"><a href="#更进一步" class="headerlink" title="更进一步"></a>更进一步</h2><h3 id="特定端口范围"><a href="#特定端口范围" class="headerlink" title="特定端口范围"></a>特定端口范围</h3><p>某些应用程序使用多个端口而不是单个端口，你可能需要使用UFW指定端口范围，指定端口范围时，必须指定规则应适用的协议（ tcp或udp ）。<br>例如，要允许使用端口9000-9002范围内的连接，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow 9000:9002/tcp</span></span><br><span class="line"><span class="comment"># ufw allow 9000:9002/udp</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="特定的IP地址"><a href="#特定的IP地址" class="headerlink" title="特定的IP地址"></a>特定的IP地址</h3><p>出于某些情况，你可能需要允许/禁用来自特定IP地址的连接，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow from 192.168.29.36</span></span><br><span class="line"><span class="comment"># ufw deny from 192.168.29.36</span></span><br></pre></td></tr></table></figure>
+
+<p>还可以在UFW中允许IP地址范围,以下命令将允许从192.168.1.1到192.168.1.254的所有连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow from 192.168.1.0/24</span></span><br></pre></td></tr></table></figure>
+
+<p>要允许IP地址192.168.29.36连接特定的端口80，可以运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow from 192.168.29.36 to any port 80</span></span><br></pre></td></tr></table></figure>
+
+<p>进一步的，可以指定TCP/UDP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw allow from 192.168.29.36 to any port 80 proto tcp</span></span><br></pre></td></tr></table></figure>
+
+<p>来个复杂点的例子，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ufw deny from 192.168.0.4 to any port 22 </span></span><br><span class="line"><span class="comment"># ufw deny from 192.168.0.10 to any port 22 </span></span><br><span class="line"><span class="comment"># ufw allow from 192.168.0.0/24 to any port 22</span></span><br></pre></td></tr></table></figure>
+
+<p>以上命令将会阻止从192.168.0.4和192.168.0.10访问端口22，但允许所有其他IP访问端口22。</p>
+<p>以上大致简述了UFW的基本使用，日常使用基本够用。除此之外，UFW还支持更多的高级特性例如允许与特定网络接口的连接、配置NAT等等，你可以通过查看帮助文档或者搜索引擎了解其他高级命令的使用。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2022/08/25/%E6%9C%AC%E5%9C%B0%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2022-08-30
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/Linux/" title="Linux">
+                        <b>#</b> Linux
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Linux/" title="Linux">
+                        <b>#</b> Linux
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/09/04/%E7%85%8E%E7%89%9B%E6%8E%92%E7%9A%84%E6%97%B6%E9%97%B4/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="toc-text">先决条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu-amp-Debian"><span class="toc-text">Ubuntu &amp; Debian</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS"><span class="toc-text">CentOS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AEUFW%E9%BB%98%E8%AE%A4%E7%AD%96%E7%95%A5"><span class="toc-text">第一步：设置UFW默认策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AESSH%E6%88%96%E5%85%B6%E4%BB%96%E8%A7%84%E5%88%99"><span class="toc-text">第二步：设置SSH或其他规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%85%B6%E4%BB%96%E8%A7%84%E5%88%99%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-text">第三步：其他规则的设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5"><span class="toc-text">更进一步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E7%AB%AF%E5%8F%A3%E8%8C%83%E5%9B%B4"><span class="toc-text">特定端口范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="toc-text">特定的IP地址</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="http://www.daofilm.com/">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="http://www.daofilm.com/">Copyright © Zhuran 2020</a>
+    </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="http://www.daofilm.com/">Theme by Zhuran | Powered by Hexo</a>
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
