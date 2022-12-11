@@ -6,10 +6,8 @@
   <meta name="author" content="zchengsite, 1451426471@qq.com" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-    <meta name="robots" content="noindex" />
   
-  
-  <title>竹冉的博客</title>
+  <title>小米刷机指南 | 竹冉的博客</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -101,151 +99,153 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="关于焦虑症的思考">
-        <div class="time-m-d">2021-02-22</div>
-        <div class="title">
-          <a href="/2021/02/22/%E5%85%B3%E4%BA%8E%E7%84%A6%E8%99%91%E7%97%87%E7%9A%84%E6%80%9D%E8%80%83/">
-            
-              
-                <span>关于焦虑症的思考</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">小米刷机指南</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2022-12-11
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术">
+                    <b>#</b> 技术
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/%E5%B0%8F%E7%B1%B3/" title="小米">
+                    <b>#</b> 小米
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="2020年最后一天的遐想">
-        <div class="time-m-d">2020-12-31</div>
-        <div class="title">
-          <a href="/2020/12/31/2020%E5%B9%B4%E6%9C%80%E5%90%8E%E4%B8%80%E5%A4%A9%E7%9A%84%E9%81%90%E6%83%B3/">
-            
-              
-                <span>2020年最后一天的遐想</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p>本来小米刷机应该是非常简单，网上应该有大把的教程。但因为众所周知的原因，很多详细的教程消失了。而安卓机里官方支持刷机的也只有小米了。我觉得有必要用自己亲身经历，写一篇最新的小米刷机教程。我这里只写线刷教程，就是fastboot教程。</p>
+<p>首先是下载各种工具</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="http://www.miui.com/unlock/index.html">小米解锁工具</a></p>
+</li>
+<li><p>小米fastboot usb 3.0 修复补丁，下载<a target="_blank" rel="noopener" href="https://lsdy.lanzoui.com/iSlHs04ntrwb">搞机助手</a>=&gt;小米fastboot usb 3.0 修复补丁 安装后重启电脑。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://xiaomirom.com/download-xiaomi-flash-tool-miflash/">小米刷机工具 MiFlash</a> （可下可不下）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/files/xiaomi.eu/">下载对应的欧版线刷包</a> （可以直接刷 不需要第三步的工具）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://xiaomirom.com/">https://xiaomirom.com/</a> （如果选择第三步的工具，从这里下载后缀名为.tgz的线刷包，然后解压 ）</p>
+</li>
+</ol>
+<p>第一步：解锁（unblock bootloader）</p>
+<ol>
+<li>开启开发者模式：手机“我的设备” =》全部参数 =》 miui版本 连续点击=》提示“开发者模式已开启”</li>
+<li>更多设置 =》开发者选项 =》 开启USB调试 （如果不开启，手机连到电脑上只能充电）</li>
+<li>找到“装置解锁状态” -&gt;“绑定SIM卡和小米账号” -&gt;<strong>等待7天时间*</strong></li>
+<li>使用第一步下载的“小米解锁工具”，将手机关机-&gt;按住开机键和音量下键进入fastboost模式 -&gt;电脑连接手机（先要记得安装第二步的补丁，否则读不出来）</li>
+<li>登陆账号-&gt;解锁=》重启手机-&gt;<strong>退出小米账号/google账号</strong>（不退出会导致刷机后会锁机）</li>
+</ol>
+<p>第二步：刷机（option 1 用从小米欧洲论坛下的rom直接刷，推荐用这个方法，坑少）</p>
+<ol>
+<li>手机进入fastboost模式连接电脑，打开rom，可以看到3对批处理命令。分别是对用三个操作系统的。如果你是windows就用.bat，linux就用sh，苹果就用剩下的那个。</li>
+<li>如果你是第一次新刷，就用第一个（会清空数据），如果是升级就用第二个（保留数据）。</li>
+<li>点击后直接开始刷机，然后等就行了。</li>
+</ol>
+<p>第二步：刷机（option 2 用MiFlash刷）</p>
+<ol>
+<li>运行XiaoMiFlash.exe-&gt;手机进入fastboost模式-&gt;手机插入电脑-&gt;点击Driver-&gt;点击安装（默认把所有需要的驱动装入电脑）-&gt;</li>
+<li>回到XiaoMiFlash首页-&gt;点击选择-&gt;选择解压的文件夹-&gt;点击加载设备-&gt;点击加载出的设备-&gt;点击右下角全部删除-&gt;刷机</li>
+</ol>
+<p><img src="1.webp" alt="img"></p>
+<p>注意：选择全部删除！不要加锁！不要保留用户数据！</p>
+<p><img src="2.png" alt="img"></p>
+<p>PS：刷完会报错 没事 已经刷好了</p>
+<p>第三步： 刷好后设置手机</p>
+<p><strong>跳过联网检查</strong></p>
+<p>拔出手机卡-&gt;连接WIFI-&gt;检查更新提示出错-&gt;尝试使用其他网络-&gt;正在核对点击返回-&gt;”查看所有WLAN网络”-&gt;跳过检查进入系统操作初始化设定</p>
+
       </div>
-    
-      <div class="post-item" title="Hexo使用指南">
-        <div class="time-m-d">2020-12-24</div>
-        <div class="title">
-          <a href="/2020/12/24/Hexo%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>Hexo使用指南</span>
-              
+              <a href="/2022/10/26/%E5%8D%97%E5%AE%81%E4%B9%8B%E8%A1%8C/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2022-12-11
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术">
+                        <b>#</b> 技术
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/%E5%B0%8F%E7%B1%B3/" title="小米">
+                        <b>#</b> 小米
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="2020年的国庆">
-        <div class="time-m-d">2020-10-09</div>
-        <div class="title">
-          <a href="/2020/10/09/2020%E5%B9%B4%E7%9A%84%E5%9B%BD%E5%BA%86/">
-            
-              
-                <span>2020年的国庆</span>
-              
-            
-          </a>
-        </div>
-      </div>
+
     
-      <div class="post-item" title="想做的事情">
-        <div class="time-m-d">2020-09-20</div>
-        <div class="title">
-          <a href="/2020/09/20/%E6%83%B3%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85/">
-            
-              
-                <span>想做的事情</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2020上海街拍">
-        <div class="time-m-d">2020-09-19</div>
-        <div class="title">
-          <a href="/2020/09/19/2020%E4%B8%8A%E6%B5%B7%E8%A1%97%E6%8B%8D/">
-            
-              
-                <span>2020上海街拍</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Pelican如何将图片放到github本地">
-        <div class="time-m-d">2020-09-17</div>
-        <div class="title">
-          <a href="/2020/09/17/Pelican%E5%A6%82%E4%BD%95%E5%B0%86%E5%9B%BE%E7%89%87%E6%94%BE%E5%88%B0github%E6%9C%AC%E5%9C%B0/">
-            
-              
-                <span>Pelican如何将图片放到github本地</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="安卓的基础文件">
-        <div class="time-m-d">2020-09-17</div>
-        <div class="title">
-          <a href="/2020/09/17/%E5%AE%89%E5%8D%93%E7%9A%84%E5%9F%BA%E7%A1%80%E6%96%87%E4%BB%B6/">
-            
-              
-                <span>安卓的基础文件</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="pipenv的使用">
-        <div class="time-m-d">2019-11-11</div>
-        <div class="title">
-          <a href="/2019/11/11/pipenv%E7%9A%84%E4%BD%BF%E7%94%A8/">
-            
-              
-                <span>pipenv的使用</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Pelican如何将图片放到github本地">
-        <div class="time-m-d">2019-10-22</div>
-        <div class="title">
-          <a href="/2019/10/22/%E5%9C%A8%E5%8D%9A%E5%AE%A2%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/">
-            
-              
-                <span>Pelican如何将图片放到github本地</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-      <a href="/page/3/"><i class="iconfont icon-angleleft"></i></a>
-    
-    <span class="page-num">4 / 5</span>
-    
-      <a href="/page/5/"><i class="iconfont icon-angleright"></i></a>
-    
-  </nav>
-</div>
+
 
         <div class="footer">
   <div class="social">
